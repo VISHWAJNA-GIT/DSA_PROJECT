@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Weather in {{ weather_data.city }}</title>
+</head>
+<body>
+    <h1>{{ weather_data.city }} Weather</h1>
+    <p>Current temperature: {{ weather_data.current.temperature }}°C</p>
+    <p>Wind speed: {{ weather_data.current.wind_speed }} km/h</p>
+    <p>Conditions: {{ weather_data.current.condition }}</p>
+    <img src="http://openweathermap.org/img/w/{{ weather_data.current.icon }}.png" alt="Weather Icon">
+    <h2>3-Day Forecast</h2>
+    {% for day in weather_data.forecast %}
+        <ul>
+            <li>{{ day["date"] }}</li>
+            <li>High: {{ day["day"]["maxtemp_c"] }}°C, Low: {{ day["day"]["mintemp_c"] }}°C</li>
+            <li>Conditions: {{ day["day"]["condition"]["text"] }}</li>
+            <li><img src="http://openweathermap.org/img/w/{{ day["day"]["condition"]["code"] }}.png" alt="Weather Icon"></li>
+        </ul>
+    {% endfor %}
+    <a href="{{ weather_data.map_url }}">View on Map</a>
+</body>
+</html>
